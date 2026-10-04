@@ -1,0 +1,1386 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Smart Study Planner</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #172033;
+}
+
+/* ---------- HEADER ---------- */
+
+header {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+    padding: 25px 7%;
+}
+
+header h1 {
+    font-size: 30px;
+}
+
+header p {
+    margin-top: 6px;
+    opacity: 0.9;
+}
+
+/* ---------- LAYOUT ---------- */
+
+.container {
+    width: 86%;
+    max-width: 1400px;
+    margin: 25px auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 22px;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+.card h2 {
+    margin-bottom: 18px;
+    font-size: 20px;
+}
+
+/* ---------- INPUTS ---------- */
+
+label {
+    display: block;
+    margin-top: 13px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input,
+select,
+button {
+    font-family: inherit;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #d6dbe5;
+    border-radius: 8px;
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    border-color: #6366f1;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 11px 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.primary {
+    background: #4f46e5;
+    color: white;
+    width: 100%;
+    margin-top: 18px;
+}
+
+.primary:hover {
+    background: #4338ca;
+}
+
+.secondary {
+    background: #eef2ff;
+    color: #4338ca;
+    margin-top: 10px;
+}
+
+.danger {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* ---------- SUBJECT FORM ---------- */
+
+.form-row {
+    display: flex;
+    gap: 8px;
+}
+
+.form-row input,
+.form-row select {
+    flex: 1;
+}
+
+.list-item {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+    padding: 12px;
+    margin-top: 9px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-info strong {
+    display: block;
+}
+
+.item-info small {
+    color: #64748b;
+}
+
+/* ---------- DASHBOARD ---------- */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.stat h3 {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.stat p {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 6px;
+}
+
+/* ---------- TIMETABLE ---------- */
+
+.schedule-item {
+    display: grid;
+    grid-template-columns: 110px 1fr 100px;
+    gap: 15px;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.schedule-item:last-child {
+    border-bottom: none;
+}
+
+.time {
+    font-weight: bold;
+    color: #4f46e5;
+}
+
+.topic {
+    font-weight: bold;
+}
+
+.topic small {
+    display: block;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+.priority {
+    text-align: center;
+    padding: 5px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.high {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.medium {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.low {
+    background: #dcfce7;
+    color: #166534;
+}
+
+/* ---------- PRIORITY ---------- */
+
+.priority-card {
+    border-left: 5px solid #4f46e5;
+    padding: 15px;
+    background: #f8fafc;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.priority-card strong {
+    display: block;
+}
+
+.reason {
+    color: #64748b;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* ---------- RESOURCES ---------- */
+
+.resource {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.resource a {
+    text-decoration: none;
+    color: #4f46e5;
+    font-weight: bold;
+}
+
+/* ---------- EXAM TABLE ---------- */
+
+.exam {
+    display: grid;
+    grid-template-columns: 1fr 130px 80px;
+    gap: 10px;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+/* ---------- EMPTY ---------- */
+
+.empty {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media(max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 600px) {
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .schedule-item {
+        grid-template-columns: 1fr;
+    }
+
+    .exam {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>📚 Smart Study Planner</h1>
+    <p>Plan your study time, prioritize exams and discover useful resources.</p>
+</header>
+
+<div class="container">
+
+<div class="grid">
+
+<!-- ================= LEFT PANEL ================= -->
+
+<div>
+
+<!-- STUDY HOURS -->
+
+<div class="card">
+    <h2>⏱ Study Availability</h2>
+
+    <label>Study hours per day</label>
+    <input type="number" id="studyHours" min="1" max="16" value="4">
+
+    <label>Preferred study start time</label>
+    <input type="time" id="startTime" value="18:00">
+
+    <label>Break duration (minutes)</label>
+    <input type="number" id="breakTime" value="10" min="0">
+
+    <button class="primary" onclick="generatePlan()">
+        Generate Study Plan
+    </button>
+</div>
+
+
+<!-- ADD SUBJECT -->
+
+<div class="card">
+    <h2>📖 Subjects & Topics</h2>
+
+    <label>Subject</label>
+    <input id="subjectName" placeholder="e.g. Data Structures">
+
+    <label>Topic</label>
+    <input id="topicName" placeholder="e.g. Binary Trees">
+
+    <label>Difficulty</label>
+    <select id="difficulty">
+        <option value="1">Easy</option>
+        <option value="2" selected>Medium</option>
+        <option value="3">Hard</option>
+    </select>
+
+    <label>Estimated hours required</label>
+    <input type="number" id="topicHours" value="2" min="0.5" step="0.5">
+
+    <label>Current progress (%)</label>
+    <input type="number" id="progress" value="0" min="0" max="100">
+
+    <button class="secondary" onclick="addSubject()">
+        + Add Topic
+    </button>
+
+    <div id="subjectList"></div>
+</div>
+
+
+<!-- SKILLS -->
+
+<div class="card">
+    <h2>🚀 Skills to Learn</h2>
+
+    <input id="skillName"
+           placeholder="e.g. JavaScript, DSA, React">
+
+    <button class="secondary" onclick="addSkill()">
+        + Add Skill
+    </button>
+
+    <div id="skillList"></div>
+</div>
+
+
+<!-- EXAMS -->
+
+<div class="card">
+    <h2>📝 Examination Schedule</h2>
+
+    <label>Subject</label>
+    <input id="examSubject" placeholder="e.g. Operating Systems">
+
+    <label>Exam date</label>
+    <input type="date" id="examDate">
+
+    <button class="secondary" onclick="addExam()">
+        + Add Examination
+    </button>
+
+    <div id="examList"></div>
+</div>
+
+</div>
+
+
+<!-- ================= RIGHT PANEL ================= -->
+
+<div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat">
+    <h3>Daily Hours</h3>
+    <p id="statHours">4</p>
+</div>
+
+<div class="stat">
+    <h3>Topics</h3>
+    <p id="statTopics">0</p>
+</div>
+
+<div class="stat">
+    <h3>Exams</h3>
+    <p id="statExams">0</p>
+</div>
+
+<div class="stat">
+    <h3>Skills</h3>
+    <p id="statSkills">0</p>
+</div>
+
+</div>
+
+
+<!-- PRIORITY -->
+
+<div class="card">
+
+<h2>🔥 What Should You Study First?</h2>
+
+<div id="priorityList">
+    <div class="empty">
+        Add subjects and exams to calculate priorities.
+    </div>
+</div>
+
+</div>
+
+
+<!-- TIMETABLE -->
+
+<div class="card">
+
+<h2>📅 Today's Timetable</h2>
+
+<div id="schedule">
+
+    <div class="empty">
+        Your personalized timetable will appear here.
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- RESOURCES -->
+
+<div class="card">
+
+<h2>🎓 Recommended Resources</h2>
+
+<div id="resources">
+
+    <div class="empty">
+        Add subjects to receive resource recommendations.
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+<script>
+
+/* =========================================================
+   DATA
+========================================================= */
+
+let subjects = JSON.parse(
+    localStorage.getItem("subjects") || "[]"
+);
+
+let skills = JSON.parse(
+    localStorage.getItem("skills") || "[]"
+);
+
+let exams = JSON.parse(
+    localStorage.getItem("exams") || "[]"
+);
+
+
+/* =========================================================
+   SAVE DATA
+========================================================= */
+
+function saveData() {
+
+    localStorage.setItem(
+        "subjects",
+        JSON.stringify(subjects)
+    );
+
+    localStorage.setItem(
+        "skills",
+        JSON.stringify(skills)
+    );
+
+    localStorage.setItem(
+        "exams",
+        JSON.stringify(exams)
+    );
+}
+
+
+/* =========================================================
+   ADD SUBJECT
+========================================================= */
+
+function addSubject() {
+
+    const subject =
+        document.getElementById("subjectName").value.trim();
+
+    const topic =
+        document.getElementById("topicName").value.trim();
+
+    const difficulty =
+        Number(document.getElementById("difficulty").value);
+
+    const hours =
+        Number(document.getElementById("topicHours").value);
+
+    const progress =
+        Number(document.getElementById("progress").value);
+
+    if (!subject || !topic) {
+        alert("Please enter both subject and topic.");
+        return;
+    }
+
+    subjects.push({
+        id: Date.now(),
+        subject,
+        topic,
+        difficulty,
+        hours,
+        progress
+    });
+
+    saveData();
+
+    document.getElementById("subjectName").value = "";
+    document.getElementById("topicName").value = "";
+
+    renderSubjects();
+    generatePlan();
+}
+
+
+/* =========================================================
+   REMOVE SUBJECT
+========================================================= */
+
+function removeSubject(id) {
+
+    subjects = subjects.filter(
+        item => item.id !== id
+    );
+
+    saveData();
+
+    renderSubjects();
+    generatePlan();
+}
+
+
+/* =========================================================
+   RENDER SUBJECTS
+========================================================= */
+
+function renderSubjects() {
+
+    const container =
+        document.getElementById("subjectList");
+
+    container.innerHTML = "";
+
+    subjects.forEach(item => {
+
+        const difficultyText =
+            item.difficulty === 3
+            ? "Hard"
+            : item.difficulty === 2
+            ? "Medium"
+            : "Easy";
+
+        container.innerHTML += `
+
+        <div class="list-item">
+
+            <div class="item-info">
+
+                <strong>
+                    ${item.subject} — ${item.topic}
+                </strong>
+
+                <small>
+                    ${difficultyText} |
+                    ${item.hours} hrs |
+                    ${item.progress}% complete
+                </small>
+
+            </div>
+
+            <button
+                class="danger"
+                onclick="removeSubject(${item.id})">
+                ×
+            </button>
+
+        </div>
+
+        `;
+    });
+
+    document.getElementById("statTopics").textContent =
+        subjects.length;
+}
+
+
+/* =========================================================
+   ADD SKILL
+========================================================= */
+
+function addSkill() {
+
+    const input =
+        document.getElementById("skillName");
+
+    const skill =
+        input.value.trim();
+
+    if (!skill) return;
+
+    skills.push(skill);
+
+    saveData();
+
+    input.value = "";
+
+    renderSkills();
+    generateResources();
+}
+
+
+/* =========================================================
+   REMOVE SKILL
+========================================================= */
+
+function removeSkill(index) {
+
+    skills.splice(index, 1);
+
+    saveData();
+
+    renderSkills();
+    generateResources();
+}
+
+
+/* =========================================================
+   RENDER SKILLS
+========================================================= */
+
+function renderSkills() {
+
+    const container =
+        document.getElementById("skillList");
+
+    container.innerHTML = "";
+
+    skills.forEach((skill, index) => {
+
+        container.innerHTML += `
+
+        <div class="list-item">
+
+            <div class="item-info">
+                <strong>${skill}</strong>
+            </div>
+
+            <button
+                class="danger"
+                onclick="removeSkill(${index})">
+                ×
+            </button>
+
+        </div>
+
+        `;
+    });
+
+    document.getElementById("statSkills").textContent =
+        skills.length;
+}
+
+
+/* =========================================================
+   ADD EXAM
+========================================================= */
+
+function addExam() {
+
+    const subject =
+        document.getElementById("examSubject")
+        .value.trim();
+
+    const date =
+        document.getElementById("examDate").value;
+
+    if (!subject || !date) {
+
+        alert("Enter subject and examination date.");
+
+        return;
+    }
+
+    exams.push({
+        id: Date.now(),
+        subject,
+        date
+    });
+
+    saveData();
+
+    document.getElementById("examSubject").value = "";
+    document.getElementById("examDate").value = "";
+
+    renderExams();
+    generatePlan();
+}
+
+
+/* =========================================================
+   REMOVE EXAM
+========================================================= */
+
+function removeExam(id) {
+
+    exams = exams.filter(
+        exam => exam.id !== id
+    );
+
+    saveData();
+
+    renderExams();
+    generatePlan();
+}
+
+
+/* =========================================================
+   RENDER EXAMS
+========================================================= */
+
+function renderExams() {
+
+    const container =
+        document.getElementById("examList");
+
+    container.innerHTML = "";
+
+    exams.forEach(exam => {
+
+        container.innerHTML += `
+
+        <div class="exam">
+
+            <strong>${exam.subject}</strong>
+
+            <span>
+                ${formatDate(exam.date)}
+            </span>
+
+            <button
+                class="danger"
+                onclick="removeExam(${exam.id})">
+                ×
+            </button>
+
+        </div>
+
+        `;
+    });
+
+    document.getElementById("statExams").textContent =
+        exams.length;
+}
+
+
+/* =========================================================
+   DATE DIFFERENCE
+========================================================= */
+
+function daysUntil(date) {
+
+    const today = new Date();
+
+    today.setHours(0,0,0,0);
+
+    const target = new Date(date);
+
+    target.setHours(0,0,0,0);
+
+    return Math.ceil(
+        (target - today) /
+        (1000 * 60 * 60 * 24)
+    );
+}
+
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
+
+function formatDate(date) {
+
+    return new Date(date).toLocaleDateString(
+        "en-IN",
+        {
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+        }
+    );
+}
+
+
+/* =========================================================
+   CALCULATE PRIORITY
+========================================================= */
+
+function calculatePriority(topic) {
+
+    let score = 0;
+
+    /* Difficulty */
+
+    score += topic.difficulty * 20;
+
+    /* Low progress means higher priority */
+
+    score += (100 - topic.progress) * 0.3;
+
+
+    /* Exam proximity */
+
+    const relatedExam =
+        exams.find(
+            exam =>
+            exam.subject.toLowerCase()
+            === topic.subject.toLowerCase()
+        );
+
+    if (relatedExam) {
+
+        const days =
+            daysUntil(relatedExam.date);
+
+        if (days <= 2)
+            score += 80;
+
+        else if (days <= 5)
+            score += 60;
+
+        else if (days <= 10)
+            score += 40;
+
+        else if (days <= 20)
+            score += 20;
+    }
+
+    return score;
+}
+
+
+/* =========================================================
+   PRIORITY LABEL
+========================================================= */
+
+function priorityLabel(score) {
+
+    if (score >= 100)
+        return "High";
+
+    if (score >= 60)
+        return "Medium";
+
+    return "Low";
+}
+
+
+/* =========================================================
+   GENERATE PRIORITY LIST
+========================================================= */
+
+function generatePriorities() {
+
+    const container =
+        document.getElementById("priorityList");
+
+    if (subjects.length === 0) {
+
+        container.innerHTML =
+            `<div class="empty">
+                Add topics to calculate priorities.
+             </div>`;
+
+        return;
+    }
+
+    const sorted =
+        [...subjects]
+        .map(item => ({
+            ...item,
+            score: calculatePriority(item)
+        }))
+        .sort(
+            (a,b) => b.score - a.score
+        );
+
+    container.innerHTML = "";
+
+    sorted.slice(0, 6).forEach(item => {
+
+        const priority =
+            priorityLabel(item.score);
+
+        let reason =
+            `${item.progress}% complete • ${item.hours} hrs estimated`;
+
+        const exam =
+            exams.find(
+                e =>
+                e.subject.toLowerCase()
+                === item.subject.toLowerCase()
+            );
+
+        if (exam) {
+
+            const days =
+                daysUntil(exam.date);
+
+            reason +=
+                ` • Exam in ${Math.max(days,0)} day(s)`;
+        }
+
+        container.innerHTML += `
+
+        <div class="priority-card">
+
+            <strong>
+                ${item.subject} — ${item.topic}
+            </strong>
+
+            <span class="priority ${priority.toLowerCase()}">
+                ${priority} Priority
+            </span>
+
+            <div class="reason">
+                ${reason}
+            </div>
+
+        </div>
+
+        `;
+    });
+}
+
+
+/* =========================================================
+   GENERATE TIMETABLE
+========================================================= */
+
+function generatePlan() {
+
+    const hours =
+        Number(
+            document.getElementById("studyHours").value
+        ) || 4;
+
+    const start =
+        document.getElementById("startTime").value
+        || "18:00";
+
+    const breakMinutes =
+        Number(
+            document.getElementById("breakTime").value
+        ) || 10;
+
+    document.getElementById("statHours").textContent =
+        hours;
+
+
+    if (subjects.length === 0) {
+
+        document.getElementById("schedule").innerHTML =
+            `<div class="empty">
+                Add some topics first.
+             </div>`;
+
+        generatePriorities();
+
+        return;
+    }
+
+
+    const sorted =
+        [...subjects]
+        .map(item => ({
+            ...item,
+            score: calculatePriority(item)
+        }))
+        .sort(
+            (a,b) => b.score - a.score
+        );
+
+
+    /*
+       Convert study hours into
+       50-minute focused sessions.
+    */
+
+    const sessionMinutes = 50;
+
+    const totalMinutes =
+        hours * 60;
+
+    let available =
+        totalMinutes;
+
+    let currentMinutes =
+        timeToMinutes(start);
+
+    let schedule = [];
+
+    let index = 0;
+
+
+    while (
+        available >= sessionMinutes &&
+        index < sorted.length
+    ) {
+
+        const item =
+            sorted[index % sorted.length];
+
+        const startTime =
+            minutesToTime(currentMinutes);
+
+        currentMinutes += sessionMinutes;
+
+        const endTime =
+            minutesToTime(currentMinutes);
+
+        schedule.push({
+            start: startTime,
+            end: endTime,
+            item
+        });
+
+        available -= sessionMinutes;
+
+        /*
+           Add break after each session
+        */
+
+        if (available >= breakMinutes) {
+
+            currentMinutes += breakMinutes;
+
+            available -= breakMinutes;
+        }
+
+        index++;
+    }
+
+
+    const container =
+        document.getElementById("schedule");
+
+    container.innerHTML = "";
+
+
+    schedule.forEach(slot => {
+
+        const priority =
+            priorityLabel(slot.item.score);
+
+        container.innerHTML += `
+
+        <div class="schedule-item">
+
+            <div class="time">
+                ${slot.start} - ${slot.end}
+            </div>
+
+            <div class="topic">
+
+                ${slot.item.subject}
+
+                <small>
+                    ${slot.item.topic}
+                </small>
+
+            </div>
+
+            <div class="priority ${priority.toLowerCase()}">
+                ${priority}
+            </div>
+
+        </div>
+
+        `;
+    });
+
+
+    generatePriorities();
+    generateResources();
+}
+
+
+/* =========================================================
+   TIME FUNCTIONS
+========================================================= */
+
+function timeToMinutes(time) {
+
+    const [hours, minutes] =
+        time.split(":").map(Number);
+
+    return hours * 60 + minutes;
+}
+
+
+function minutesToTime(minutes) {
+
+    minutes =
+        minutes % (24 * 60);
+
+    const hours =
+        Math.floor(minutes / 60);
+
+    const mins =
+        minutes % 60;
+
+    return String(hours).padStart(2,"0")
+        + ":" +
+        String(mins).padStart(2,"0");
+}
+
+
+/* =========================================================
+   RESOURCE DATABASE
+========================================================= */
+
+const resourceDatabase = {
+
+    "data structures": [
+        ["GeeksforGeeks", "https://www.geeksforgeeks.org/data-structures/"],
+        ["VisuAlgo", "https://visualgo.net/"],
+        ["LeetCode", "https://leetcode.com/"]
+    ],
+
+    "dsa": [
+        ["GeeksforGeeks", "https://www.geeksforgeeks.org/data-structures/"],
+        ["VisuAlgo", "https://visualgo.net/"],
+        ["LeetCode", "https://leetcode.com/"]
+    ],
+
+    "javascript": [
+        ["MDN Web Docs", "https://developer.mozilla.org/en-US/docs/Web/JavaScript"],
+        ["javascript.info", "https://javascript.info/"]
+    ],
+
+    "html": [
+        ["MDN Web Docs", "https://developer.mozilla.org/en-US/docs/Web/HTML"]
+    ],
+
+    "css": [
+        ["MDN Web Docs", "https://developer.mozilla.org/en-US/docs/Web/CSS"],
+        ["CSS-Tricks", "https://css-tricks.com/"]
+    ],
+
+    "python": [
+        ["Python Documentation", "https://docs.python.org/3/"],
+        ["freeCodeCamp", "https://www.freecodecamp.org/"]
+    ],
+
+    "c++": [
+        ["LearnCpp", "https://www.learncpp.com/"],
+        ["cplusplus.com", "https://cplusplus.com/"]
+    ],
+
+    "operating systems": [
+        ["GeeksforGeeks OS", "https://www.geeksforgeeks.org/operating-systems/"],
+        ["Neso Academy", "https://www.youtube.com/@nesoacademy"]
+    ],
+
+    "database": [
+        ["W3Schools SQL", "https://www.w3schools.com/sql/"],
+        ["SQLBolt", "https://sqlbolt.com/"]
+    ],
+
+    "machine learning": [
+        ["Kaggle Learn", "https://www.kaggle.com/learn"],
+        ["Google ML Crash Course", "https://developers.google.com/machine-learning/crash-course"]
+    ]
+};
+
+
+/* =========================================================
+   GENERATE RESOURCES
+========================================================= */
+
+function generateResources() {
+
+    const container =
+        document.getElementById("resources");
+
+    const names = [
+        ...subjects.map(x => x.subject),
+        ...skills
+    ];
+
+    if (names.length === 0) {
+
+        container.innerHTML =
+            `<div class="empty">
+                Add subjects or skills to get resources.
+             </div>`;
+
+        return;
+    }
+
+
+    let resources = [];
+
+
+    names.forEach(name => {
+
+        const key =
+            name.toLowerCase().trim();
+
+        if (resourceDatabase[key]) {
+
+            resourceDatabase[key]
+                .forEach(resource => {
+
+                    resources.push({
+                        name: resource[0],
+                        url: resource[1],
+                        subject: name
+                    });
+
+                });
+
+        }
+
+    });
+
+
+    /* Remove duplicate resources */
+
+    resources =
+        resources.filter(
+            (resource,index,self) =>
+            index === self.findIndex(
+                r => r.url === resource.url
+            )
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (resources.length === 0) {
+
+        container.innerHTML = `
+
+        <div class="empty">
+
+            No predefined resources found.
+
+            <br><br>
+
+            Try adding subjects such as
+            DSA, JavaScript, Python, C++,
+            Operating Systems or Machine Learning.
+
+        </div>
+
+        `;
+
+        return;
+    }
+
+
+    resources.forEach(resource => {
+
+        container.innerHTML += `
+
+        <div class="resource">
+
+            <span>
+                <strong>${resource.name}</strong>
+                <small> — ${resource.subject}</small>
+            </span>
+
+            <a
+                href="${resource.url}"
+                target="_blank">
+                Study →
+            </a>
+
+        </div>
+
+        `;
+    });
+}
+
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
+
+renderSubjects();
+renderSkills();
+renderExams();
+
+generatePlan();
+generateResources();
+
+</script>
+
+</body>
+</html>
+```
